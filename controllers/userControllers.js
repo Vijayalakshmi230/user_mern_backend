@@ -25,6 +25,7 @@ const getUser = async (req, res) => {
 const getUserById = async (req, res) => {
     try{
         const getUserById = await Users.findById(req.params.id);
+        if (!getUserById) return res.status(404).json({ message: 'User not found' });
         res.json(getUserById);
     }
     catch(error){
@@ -36,6 +37,7 @@ const getUserById = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const updatedUser = await Users.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedUser) return res.status(404).json({ message: 'User not found' });
         res.json(updatedUser);
     }
     catch (error) {
@@ -47,6 +49,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try{
         const deleteUser = await Users.findByIdAndDelete(req.params.id);
+        if (!deletedUser) return res.status(404).json({ message: 'User not found' });
         res.json(deleteUser);
     }
     catch(errro){
